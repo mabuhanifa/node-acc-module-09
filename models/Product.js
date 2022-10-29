@@ -32,25 +32,27 @@ const productSchema = mongoose.Schema(
         message: "unit value cannot be {VALUE}, must be kg,liter,pcs",
       },
     },
-    imageURLs: {
-      type: String,
-      required: true,
-      validate: {
-        validator: (value) => {
-          if (!Array.isArray(value)) {
-            return false;
-          }
-          let isValid = true;
-          value.forEach((url) => {
-            if (validator.isUrl(url)) {
-              isValid = false;
+    imageURLs: [
+      {
+        type: String,
+        required: true,
+        validate: {
+          validator: (value) => {
+            if (!Array.isArray(value)) {
+              return false;
             }
-          });
-          return isValid;
+            let isValid = true;
+            value.forEach((url) => {
+              if (validator.isUrl(url)) {
+                isValid = false;
+              }
+            });
+            return isValid;
+          },
+          message: "Please provide valid image urls",
         },
-        message: "Please provide valid image urls",
       },
-    },
+    ],
     quantity: {
       type: Number,
       required: true,
@@ -79,17 +81,35 @@ const productSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Supplier",
     },
-    categories: [
-      {
-        name: {
-          type: String,
-          required: true,
-        },
-        _id: mongoose.Schema.Types.ObjectId,
+    category: {
+      type: String,
+      required: true,
+    },
+    brand: {
+      name: {
+        type: String,
+        required: true,
       },
-    ],
+      id: {
+        type: ObjectId,
+        ref: "Brand",
+        required: true,
+      },
+    },
   },
   {
     timeStamps: true,
   }
 );
+
+productSchema.pre("save", function (next) {
+  //this ->
+  console.log("Before saving data");
+  if (this.quantity == 0) {
+    this.status = "out of stock";
+  }
+  next();
+});
+
+const Product = mongoose.model("Product", productSchema);
+module.exports = Product;
