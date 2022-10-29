@@ -10,6 +10,7 @@ const categorySchema = mongoose.Schema(
       type: String,
       trim: true,
       required: [true, "Please provide a category name"],
+      maxLength: 100,
       lowercase: true,
       unique: true,
     },
