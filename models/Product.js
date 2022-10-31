@@ -41,6 +41,7 @@ const productSchema = mongoose.Schema(
             if (!Array.isArray(value)) {
               return false;
             }
+            //validating every array elements
             let isValid = true;
             value.forEach((url) => {
               if (validator.isUrl(url)) {
