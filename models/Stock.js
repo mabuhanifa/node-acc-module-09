@@ -4,8 +4,13 @@ const validator = require("validator");
 
 const { ObjectId } = mongoose.Schema.Types;
 
-const productSchema = mongoose.Schema(
+const stockSchema = mongoose.Schema(
   {
+    productId: {
+      type: ObjectId,
+      required: true,
+      ref: "Product",
+    },
     name: {
       type: String,
       required: [true, "Please provide a name"],
@@ -18,6 +23,11 @@ const productSchema = mongoose.Schema(
     description: {
       type: String,
       required: [true, "Please provide a description"],
+    },
+    price: {
+      typeof: Number,
+      required: [true, "Please provide a price"],
+      min: [0, "Please provide a price with positive value"],
     },
     unit: {
       type: String,
@@ -49,6 +59,22 @@ const productSchema = mongoose.Schema(
         },
       },
     ],
+    quantity: {
+      type: Number,
+      required: true,
+      min: [0, "Please provide a quantity value"],
+      validate: {
+        validator: (value) => {
+          const isInteger = Number.isInteger(value);
+          if (isInteger) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+      },
+      message: "Quantity must be an integer value",
+    },
     status: {
       type: String,
       required: true,
@@ -91,5 +117,5 @@ productSchema.pre("save", function (next) {
   next();
 });
 
-const Product = mongoose.model("Product", productSchema);
-module.exports = Product;
+const Stock = mongoose.model("Product", stockSchema);
+module.exports = Stock;
