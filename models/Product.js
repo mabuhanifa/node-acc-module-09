@@ -49,14 +49,6 @@ const productSchema = mongoose.Schema(
         },
       },
     ],
-    status: {
-      type: String,
-      required: true,
-      enum: {
-        values: ["in-stock", "out-of-stock", "discontinued"],
-        message: "Status cannot be {VALUE}",
-      },
-    },
     supplier: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Supplier",

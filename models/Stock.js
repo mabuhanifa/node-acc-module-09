@@ -24,6 +24,14 @@ const stockSchema = mongoose.Schema(
       type: String,
       required: [true, "Please provide a description"],
     },
+    unit: {
+      type: String,
+      required: [true, "Please provide a unit"],
+      enum: {
+        values: ["kg", "liter", "pcs", "bag"],
+        message: "unit value cannot be {VALUE}, must be kg, liter, pcs, bag",
+      },
+    },
     price: {
       typeof: Number,
       required: [true, "Please provide a price"],
@@ -33,16 +41,8 @@ const stockSchema = mongoose.Schema(
       type: Number,
       required: true,
       min: [0, "Please provide a quantity value"],
-      message: "Quantity must be an integer value",
     },
-    unit: {
-      type: String,
-      required: [true, "Please provide a unit"],
-      enum: {
-        values: ["kg", "liter", "pcs", "bag"],
-        message: "unit value cannot be {VALUE}, must be kg, liter, pcs, bag",
-      },
-    },
+
     status: {
       type: String,
       required: true,
@@ -50,10 +50,6 @@ const stockSchema = mongoose.Schema(
         values: ["in-stock", "out-of-stock", "discontinued"],
         message: "Status cannot be {VALUE}",
       },
-    },
-    supplier: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Supplier",
     },
     category: {
       type: String,
@@ -70,13 +66,50 @@ const stockSchema = mongoose.Schema(
         required: true,
       },
     },
+    store: {
+      name: {
+        type: String,
+        trim: true,
+        required: [true, "Please provide a store name"],
+        lowercase: true,
+        enum: {
+          values: [
+            "dhaka",
+            "chattogram",
+            "rajshahi",
+            "sylhet",
+            "khulna",
+            "barishal",
+            "rangpur",
+            "mymensing",
+          ],
+          message: "{VALUE} is not a valid name",
+        },
+      },
+      id: {
+        type: ObjectId,
+        required: true,
+        ref: "Store",
+      },
+    },
+    suppliedBy: {
+      name: {
+        type: String,
+        trim: true,
+        required: [true, "Please provide a supplier name"],
+      },
+      id: {
+        type: ObjectId,
+        ref: "Supplier",
+      },
+    },
   },
   {
     timeStamps: true,
   }
 );
 
-productSchema.pre("save", function (next) {
+stockSchema.pre("save", function (next) {
   //this ->
   console.log("Before saving data");
   if (this.quantity == 0) {
