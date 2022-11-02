@@ -8,9 +8,13 @@ const storeSchema = mongoose.Schema(
   {
     name: {
       type: String,
+
       trim: true,
+
       required: [true, "Please provide a store name"],
+
       lowercase: true,
+
       enum: {
         values: [
           "dhaka",
@@ -22,15 +26,19 @@ const storeSchema = mongoose.Schema(
           "rangpur",
           "mymensing",
         ],
+
         message: "{VALUE} is not a valid name",
       },
     },
+
     description: String,
+
     status: {
       type: String,
       enum: ["active", "inactive"],
       default: "active",
     },
+
     manager: {
       name: String,
       contactNumber: String,
