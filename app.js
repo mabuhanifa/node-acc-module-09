@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 app.use(express.json());
 app.use(cors());
 
-const productRoute = require("./routes");
+// const productRoute = require("./routes");
 const brandRoute = require("./routes/brandRoute");
 
 app.get("/", (req, res) => {
