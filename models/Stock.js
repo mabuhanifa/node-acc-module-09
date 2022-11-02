@@ -29,6 +29,12 @@ const stockSchema = mongoose.Schema(
       required: [true, "Please provide a price"],
       min: [0, "Please provide a price with positive value"],
     },
+    quantity: {
+      type: Number,
+      required: true,
+      min: [0, "Please provide a quantity value"],
+      message: "Quantity must be an integer value",
+    },
     unit: {
       type: String,
       required: [true, "Please provide a unit"],
@@ -37,49 +43,11 @@ const stockSchema = mongoose.Schema(
         message: "unit value cannot be {VALUE}, must be kg, liter, pcs, bag",
       },
     },
-    imageURLs: [
-      {
-        type: String,
-        required: true,
-        validate: {
-          validator: (value) => {
-            if (!Array.isArray(value)) {
-              return false;
-            }
-            //validating every array elements
-            let isValid = true;
-            value.forEach((url) => {
-              if (validator.isUrl(url)) {
-                isValid = false;
-              }
-            });
-            return isValid;
-          },
-          message: "Please provide valid image urls",
-        },
-      },
-    ],
-    quantity: {
-      type: Number,
-      required: true,
-      min: [0, "Please provide a quantity value"],
-      validate: {
-        validator: (value) => {
-          const isInteger = Number.isInteger(value);
-          if (isInteger) {
-            return true;
-          } else {
-            return false;
-          }
-        },
-      },
-      message: "Quantity must be an integer value",
-    },
     status: {
       type: String,
       required: true,
       enum: {
-        value: ["in-stock", "out-of-stock", "discontinued"],
+        values: ["in-stock", "out-of-stock", "discontinued"],
         message: "Status cannot be {VALUE}",
       },
     },
