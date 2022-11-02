@@ -49,10 +49,6 @@ const productSchema = mongoose.Schema(
         },
       },
     ],
-    supplier: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Supplier",
-    },
     category: {
       type: String,
       required: true,
