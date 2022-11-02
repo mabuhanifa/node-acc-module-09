@@ -2,9 +2,9 @@ const express = require("express");
 const dotenv = require("dotenv").config();
 const errorHandler = require("./middleware/errorHandler");
 const colors = require("colors");
-const app = require("./app");
-
-app()
+const app = express();
+const cors = require("cors");
+const mongoose = require("mongoose");
 
 const port = process.env.PORT || 5000;
 
@@ -23,4 +23,3 @@ app.use(errorHandler);
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
-
