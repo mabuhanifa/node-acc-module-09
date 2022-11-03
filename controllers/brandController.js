@@ -72,7 +72,7 @@ const updateBrand = async (req, res, next) => {
   try {
     const result = await updateBrandService(id, req.body);
     console.log(result);
-    if (!result.nModified) {
+    if (!result.modifiedCount) {
       return res.status(400).json({
         status: "fail",
         error: "Could not update the brand .",
