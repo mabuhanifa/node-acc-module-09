@@ -5,6 +5,8 @@ const colors = require("colors");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
+const brandRoute = require("./routes/brandRoute");
+app.use(cors());
 
 const port = process.env.PORT || 5000;
 
@@ -17,7 +19,7 @@ app.get("/", (req, res) => {
 app.all("*", (req, res) => {
   res.send(`No Route found`);
 });
-
+app.use("/api/v1/brand", brandRoute);
 app.use(errorHandler);
 
 app.listen(port, () => {

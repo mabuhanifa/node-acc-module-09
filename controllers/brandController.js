@@ -1,5 +1,12 @@
 const { createBrandService } = require("../services/brandServices");
 
+/**
+ @api 
+ @method ->POST
+ @url  /api/v1/brand
+ 
+**/
+
 const createBrand = async (req, res, next) => {
   try {
     const result = await createBrandService(req.body);
