@@ -1,9 +1,9 @@
 const express = require("express");
 
-const { createBrand } = require("../controllers/brandController");
+const { createBrand, getBrands } = require("../controllers/brandController");
 
 const router = express.Router();
 
-router.post("/", createBrand);
+router.post("/", createBrand).get(getBrands);
 
 module.exports = router;
