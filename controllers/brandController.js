@@ -1,10 +1,13 @@
-const { createBrandService } = require("../services/brandServices");
+const {
+  createBrandService,
+  getBrandsService,
+} = require("../services/brandServices");
 
 /**
  @api 
  @method ->POST
  @url  /api/v1/brand
- 
+
 **/
 
 const createBrand = async (req, res, next) => {
@@ -24,4 +27,19 @@ const createBrand = async (req, res, next) => {
   }
 };
 
-module.exports = { createBrand };
+const getBrands = async (req, res, next) => {
+  try {
+    const brands = await getBrandsService();
+    res.status(200).json({
+      status: "success",
+      data: brands,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      error: "Couldn't get the brand",
+    });
+  }
+};
+
+module.exports = { createBrand, getBrands };
