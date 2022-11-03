@@ -1,5 +1,6 @@
 const express = require("express");
 const errorHandler = require("./middleware/errorHandler");
+const dotenv = require("dotenv").config();
 const colors = require("colors");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -22,14 +23,14 @@ app.use("/api/v1/brand", brandRoute);
 app.use(errorHandler);
 
 // database connection
-// mongoose
-//   .connect(process.env.DATABASE, {
-//     useUnifiedTopology: true,
-//     useNewUrlParser: true,
-//   })
-//   .then(() => {
-//     console.log(`Database connection is successful 🛢`.red.bold);
-//   });
+mongoose
+  .connect(process.env.DATABASE, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
+  .then(() => {
+    console.log(`Database connection is successful 🛢`.red.bold);
+  });
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
