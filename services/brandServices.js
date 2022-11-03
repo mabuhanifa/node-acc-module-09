@@ -10,8 +10,20 @@ const getBrandsService = async () => {
   return brands;
 };
 const getBrandByIdService = async (id) => {
-  const brand = await Brand.findById({ _id: id });
+  const brand = await Brand.findOne({ _id: id });
   return brand;
 };
 
-module.exports = { createBrandService, getBrandsService, getBrandByIdService };
+const updateBrandService = async (id, data) => {
+  const result = await Brand.updateOne({ _id: id }, data, {
+    runValidators: true,
+  });
+  return result;
+};
+
+module.exports = {
+  createBrandService,
+  getBrandsService,
+  getBrandByIdService,
+  updateBrandService,
+};
