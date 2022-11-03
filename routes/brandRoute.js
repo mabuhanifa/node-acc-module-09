@@ -1,9 +1,15 @@
 const express = require("express");
 
-const { createBrand, getBrands } = require("../controllers/brandController");
+const {
+  createBrand,
+  getBrands,
+  getBrandById,
+} = require("../controllers/brandController");
 
 const router = express.Router();
 
-router.post("/", createBrand).get("/", getBrands);
+router.route("/").post(createBrand).get(getBrands);
+
+router.route("/:id").get(getBrandById);
 
 module.exports = router;
