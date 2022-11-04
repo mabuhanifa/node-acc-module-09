@@ -5,4 +5,9 @@ const getStoresService = async () => {
   return stores;
 };
 
-module.exports = { getStoresService };
+const createStoreService = async (data) => {
+  const store = await Store.create(data);
+  return store;
+};
+
+module.exports = { getStoresService, createStoreService };
