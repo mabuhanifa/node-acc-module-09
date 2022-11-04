@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
-
-const validator = require("validator");
-
 const { ObjectId } = mongoose.Schema.Types;
-
 const storeSchema = mongoose.Schema(
   {
     name: {
@@ -45,6 +41,6 @@ const storeSchema = mongoose.Schema(
   }
 );
 
-const Category = mongoose.model("Store", storeSchema);
+const Store = mongoose.model("Store", storeSchema);
 
-module.exports = Category;
+module.exports = Store;
