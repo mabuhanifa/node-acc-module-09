@@ -34,7 +34,10 @@ const storeSchema = mongoose.Schema(
     manager: {
       name: String,
       contactNumber: String,
-      id: { type: ObjectId, ref: "User" },
+      id: {
+        type: ObjectId,
+        ref: "User",
+      },
     },
   },
   {
