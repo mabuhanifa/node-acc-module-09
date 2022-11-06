@@ -1,6 +1,8 @@
+const { getProductsServices } = require("../services/productServices");
+
 const getProducts = async (req, res, next) => {
   try {
-    const products = await getStoresService();
+    const products = await getProductsServices();
 
     res.status(200).json({
       status: "success",
