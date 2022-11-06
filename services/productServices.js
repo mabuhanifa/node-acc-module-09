@@ -9,6 +9,10 @@ const createProductService = async (data) => {
   const product = await Product.create(data);
   return product;
 };
+const getProductByIdService = async (id) => {
+  const product = await Product.find({ _id: id });
+  return product;
+};
 
 
-module.exports = { getProductsServices, createProductService };
+module.exports = { getProductsServices, createProductService,getProductByIdService };
