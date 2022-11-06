@@ -1,32 +1,31 @@
 const mongoose = require("mongoose");
-
-const validator = require("validator");
-
 const { ObjectId } = mongoose.Schema.Types;
-
+// schema design
 const productSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Please provide a name"],
+      required: [true, "Please provide a name for this product."],
       trim: true,
-      unique: true,
+      unique: [true, "Name must be unique"],
       lowercase: true,
-      minLength: [3, "Name must be at least 3 characters"],
-      maxLength: [100, "Name must be less than 100 characters"],
+      minLength: [3, "Name must be at least 3 characters."],
+      maxLenght: [100, "Name is too large"],
     },
     description: {
       type: String,
-      required: [true, "Please provide a description"],
+      required: true,
     },
+
     unit: {
       type: String,
-      required: [true, "Please provide a unit"],
+      required: true,
       enum: {
-        values: ["kg", "liter", "pcs", "bag"],
-        message: "unit value cannot be {VALUE}, must be kg, liter, pcs, bag",
+        values: ["kg", "litre", "pcs", "bag"],
+        message: "unit value can't be {VALUE}, must be kg/litre/pcs/bag",
       },
     },
+
     imageURLs: [
       {
         type: String,
@@ -36,10 +35,9 @@ const productSchema = mongoose.Schema(
             if (!Array.isArray(value)) {
               return false;
             }
-            //validating every array elements
             let isValid = true;
             value.forEach((url) => {
-              if (validator.isUrl(url)) {
+              if (!validator.isURL(url)) {
                 isValid = false;
               }
             });
@@ -49,10 +47,12 @@ const productSchema = mongoose.Schema(
         },
       },
     ],
+
     category: {
       type: String,
       required: true,
     },
+
     brand: {
       name: {
         type: String,
@@ -66,18 +66,20 @@ const productSchema = mongoose.Schema(
     },
   },
   {
-    timeStamps: true,
+    timestamps: true,
   }
 );
 
 productSchema.pre("save", function (next) {
   //this ->
-  console.log("Before saving data");
+  console.log(" Before saving data");
   if (this.quantity == 0) {
-    this.status = "out of stock";
+    this.status = "out-of-stock";
   }
+
   next();
 });
 
 const Product = mongoose.model("Product", productSchema);
+
 module.exports = Product;

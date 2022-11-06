@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const brandRouter = require("./routes/brandRoute");
+const productRouter = require("./routes/productRoute");
 
 //routes
 
@@ -16,5 +17,6 @@ app.get("/", (req, res) => {
 
 //routes
 app.use("/api/v1/brand", brandRouter);
+app.use("/api/v1/product", productRouter);
 
 module.exports = app;

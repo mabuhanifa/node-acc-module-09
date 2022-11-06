@@ -15,7 +15,7 @@ const getProducts = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({
       status: "fail",
-      message: "Can't get the stores",
+      message: "Can't get the products",
       error: error.message,
     });
   }
@@ -33,7 +33,7 @@ const createProduct = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({
       status: "fail",
-      message: "Couldn't create store",
+      message: "Couldn't create product",
       error: error.message,
     });
   }
@@ -51,7 +51,7 @@ const getProductById = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({
       status: "fail",
-      message: "Can't get the stores",
+      message: "Can't get the product",
       error: error.message,
     });
   }
