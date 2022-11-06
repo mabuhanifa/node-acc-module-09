@@ -17,4 +17,22 @@ const getProducts = async (req, res, next) => {
   }
 };
 
-module.exports = { getProducts };
+const createProduct = async (req, res, next) => {
+  try {
+    const result = await createProductService(req.body);
+
+    res.status(200).json({
+      status: "success",
+      message: "Store created successfully!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      message: "Couldn't create store",
+      error: error.message,
+    });
+  }
+};
+
+module.exports = { getProducts, createProduct };
