@@ -6,6 +6,7 @@ const {
 } = require("../services/brandServices");
 
 /**
+ 
  @api 
  @method ->POST
  @url  /api/v1/brand
@@ -29,6 +30,14 @@ const createBrand = async (req, res, next) => {
   }
 };
 
+/**
+ 
+ @api 
+ @method ->GET
+ @url  /api/v1/brand
+
+**/
+
 const getBrands = async (req, res, next) => {
   try {
     const brands = await getBrandsService();
@@ -43,6 +52,15 @@ const getBrands = async (req, res, next) => {
     });
   }
 };
+
+
+/**
+ 
+ @api 
+ @method ->GET by ID
+ @url  /api/v1/brand/:id
+
+**/
 
 const getBrandById = async (req, res, next) => {
   const { id } = req.params;

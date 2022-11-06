@@ -10,4 +10,9 @@ const createStoreService = async (data) => {
   return store;
 };
 
-module.exports = { getStoresService, createStoreService };
+const getStoreByIdService = async (storeId) => {
+  const store = await Store.find({ _id: storeId });
+  return store;
+};
+
+module.exports = { getStoresService, createStoreService, getStoreByIdService };
