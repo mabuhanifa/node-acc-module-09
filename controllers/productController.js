@@ -15,7 +15,7 @@ const getProducts = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({
       status: "fail",
-      message: "Can't get the products",
+      message: "Could't get the products",
       error: error.message,
     });
   }
@@ -27,7 +27,7 @@ const createProduct = async (req, res, next) => {
 
     res.status(200).json({
       status: "success",
-      message: "Store created successfully!",
+      message: "Product created successfully!",
       data: result,
     });
   } catch (error) {
@@ -56,4 +56,6 @@ const getProductById = async (req, res, next) => {
     });
   }
 };
+
+
 module.exports = { getProducts, createProduct, getProductById };
