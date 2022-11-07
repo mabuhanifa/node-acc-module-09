@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
-
-const validator = require("validator");
-
 const { ObjectId } = mongoose.Schema.Types;
+// schema design
+const validator = require("validator");
 
 const stockSchema = mongoose.Schema(
   {
@@ -13,43 +12,42 @@ const stockSchema = mongoose.Schema(
     },
     name: {
       type: String,
-      required: [true, "Please provide a name"],
+      required: [true, "Please provide a name for this product."],
       trim: true,
-      unique: true,
       lowercase: true,
-      minLength: [3, "Name must be at least 3 characters"],
-      maxLength: [100, "Name must be less than 100 characters"],
+      minLength: [3, "Name must be at least 3 characters."],
+      maxLenght: [100, "Name is too large"],
     },
     description: {
       type: String,
-      required: [true, "Please provide a description"],
+      required: true,
     },
+
     unit: {
       type: String,
-      required: [true, "Please provide a unit"],
+      required: true,
       enum: {
-        values: ["kg", "liter", "pcs", "bag"],
-        message: "unit value cannot be {VALUE}, must be kg, liter, pcs, bag",
+        values: ["kg", "litre", "pcs", "bag"],
+        message: "unit value can't be {VALUE}, must be kg/litre/pcs/bag",
       },
     },
+
+    imageURLs: [
+      {
+        type: String,
+        required: true,
+        validate: [validator.isURL, "Please provide valid url(s)"],
+      },
+    ],
     price: {
-      typeof: Number,
-      required: [true, "Please provide a price"],
-      min: [0, "Please provide a price with positive value"],
+      type: Number,
+      required: true,
+      min: [0, "Product price can't be negative"],
     },
     quantity: {
       type: Number,
       required: true,
-      min: [0, "Please provide a quantity value"],
-    },
-
-    status: {
-      type: String,
-      required: true,
-      enum: {
-        values: ["in-stock", "out-of-stock", "discontinued"],
-        message: "Status cannot be {VALUE}",
-      },
+      min: [0, "Product quantity can't be negative"],
     },
     category: {
       type: String,
@@ -64,6 +62,14 @@ const stockSchema = mongoose.Schema(
         type: ObjectId,
         ref: "Brand",
         required: true,
+      },
+    },
+    status: {
+      type: String,
+      required: true,
+      enum: {
+        values: ["in-stock", "out-of-stock", "discontinued"],
+        message: " status can't be {VALUE} ",
       },
     },
     store: {
@@ -81,7 +87,7 @@ const stockSchema = mongoose.Schema(
             "khulna",
             "barishal",
             "rangpur",
-            "mymensing",
+            "mymensingh",
           ],
           message: "{VALUE} is not a valid name",
         },
@@ -103,20 +109,18 @@ const stockSchema = mongoose.Schema(
         ref: "Supplier",
       },
     },
+
+    sellCount: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
   },
   {
-    timeStamps: true,
+    timestamps: true,
   }
 );
 
-stockSchema.pre("save", function (next) {
-  //this ->
-  console.log("Before saving data");
-  if (this.quantity == 0) {
-    this.status = "out of stock";
-  }
-  next();
-});
+const Stock = mongoose.model("Stock", stockSchema);
 
-const Stock = mongoose.model("Product", stockSchema);
 module.exports = Stock;

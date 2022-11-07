@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const brandRouter = require("./routes/brandRoute");
 const productRouter = require("./routes/productRoute");
 const supplierRouter = require("./routes/supplierRoute");
-
+const stockRouter = require("./routes/stockRoute");
 
 //middlewares
 app.use(express.json());
@@ -19,5 +19,6 @@ app.get("/", (req, res) => {
 app.use("/api/v1/brand", brandRouter);
 app.use("/api/v1/product", productRouter);
 app.use("/api/v1/supplier", supplierRouter);
+app.use("/api/v1/supplier", stockRouter);
 
 module.exports = app;
