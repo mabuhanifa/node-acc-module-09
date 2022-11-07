@@ -5,4 +5,8 @@ const getSuppliersService = async () => {
   return supplier;
 };
 
-module.exports = { getSuppliersService };
+const createSupplierService = async (data) => {
+  const result = await Supplier.create(data);
+  return result;
+};
+module.exports = { getSuppliersService, createSupplierService };
