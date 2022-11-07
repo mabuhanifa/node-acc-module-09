@@ -1,6 +1,7 @@
 const {
   getSuppliersService,
   createSupplierService,
+  getSupplierByIdService,
 } = require("../services/supplierServices");
 
 const createSupplier = async (req, res) => {
@@ -35,4 +36,30 @@ const getSuppliers = async (req, res) => {
   }
 };
 
-module.exports = { getSuppliers, createSupplier };
+const getSupplierById = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+      const supplier = await getSupplierByIdService(id);
+  
+      if(!supplier){
+        return res.status(400).json({
+          status: "fail",
+          error: "Couldn't find a supplier with this id"
+        })
+      }
+  
+      res.status(200).json({
+        status: "success",
+        data: supplier,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({
+        status: "fail",
+        error: "Couldn't get the brands",
+      });
+    }
+  };
+
+
+module.exports = { getSuppliers, createSupplier,getSupplierById, };
