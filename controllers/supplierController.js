@@ -2,6 +2,7 @@ const {
   getSuppliersService,
   createSupplierService,
   getSupplierByIdService,
+  updateSupplierService,
 } = require("../services/supplierServices");
 
 const createSupplier = async (req, res) => {
@@ -37,29 +38,59 @@ const getSuppliers = async (req, res) => {
 };
 
 const getSupplierById = async (req, res, next) => {
-    const { id } = req.params;
-    try {
-      const supplier = await getSupplierByIdService(id);
-  
-      if(!supplier){
-        return res.status(400).json({
-          status: "fail",
-          error: "Couldn't find a supplier with this id"
-        })
-      }
-  
-      res.status(200).json({
-        status: "success",
-        data: supplier,
-      });
-    } catch (error) {
-      console.log(error);
-      res.status(400).json({
+  const { id } = req.params;
+  try {
+    const supplier = await getSupplierByIdService(id);
+
+    if (!supplier) {
+      return res.status(400).json({
         status: "fail",
-        error: "Couldn't get the brands",
+        error: "Couldn't find a supplier with this id",
       });
     }
-  };
 
+    res.status(200).json({
+      status: "success",
+      data: supplier,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "fail",
+      error: "Couldn't get the brands",
+    });
+  }
+};
+const updateSupplier = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const result = await updateSupplierService(id, req.body);
 
-module.exports = { getSuppliers, createSupplier,getSupplierById, };
+    console.log(result);
+
+    if (!result.nModified) {
+      return res.status(400).json({
+        status: "fail",
+        error: "Couldn't update the supplier with this id",
+      });
+    }
+
+    res.status(200).json({
+      status: "success",
+      message: "Successfully updated the supplier",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "fail",
+      error: "Couldn't update the brand",
+    });
+  }
+};
+
+module.exports = {
+  getSuppliers,
+  createSupplier,
+  getSupplierById,
+  updateSupplier,
+};
