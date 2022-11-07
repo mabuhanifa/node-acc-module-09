@@ -68,7 +68,7 @@ const updateSupplier = async (req, res, next) => {
 
     console.log(result);
 
-    if (!result.nModified) {
+    if (!result.modifiedCount) {
       return res.status(400).json({
         status: "fail",
         error: "Couldn't update the supplier with this id",
