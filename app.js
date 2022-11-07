@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const brandRouter = require("./routes/brandRoute");
 const productRouter = require("./routes/productRoute");
+const supplierRouter = require("./routes/supplierRoute");
 
 //routes
 
@@ -18,5 +19,6 @@ app.get("/", (req, res) => {
 //routes
 app.use("/api/v1/brand", brandRouter);
 app.use("/api/v1/product", productRouter);
+app.use("/api/v1/supplier", supplierRouter);
 
 module.exports = app;
