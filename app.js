@@ -6,7 +6,6 @@ const brandRouter = require("./routes/brandRoute");
 const productRouter = require("./routes/productRoute");
 const supplierRouter = require("./routes/supplierRoute");
 
-//routes
 
 //middlewares
 app.use(express.json());
