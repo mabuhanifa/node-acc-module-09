@@ -5,6 +5,15 @@ const {
   updateSupplierService,
 } = require("../services/supplierServices");
 
+
+/**
+ 
+ @api 
+ @method ->POST
+ @url  /api/v1/supplier
+
+**/
+
 const createSupplier = async (req, res) => {
   try {
     const result = await createSupplierService(req.body);
@@ -21,6 +30,15 @@ const createSupplier = async (req, res) => {
     });
   }
 };
+
+/**
+ 
+ @api 
+ @method ->GET
+ @url  /api/v1/supplier
+
+**/
+
 const getSuppliers = async (req, res) => {
   try {
     const suppliers = await getSuppliersService();
@@ -37,6 +55,13 @@ const getSuppliers = async (req, res) => {
   }
 };
 
+/**
+ 
+ @api 
+ @method ->POST
+ @url  /api/v1/supplier/:id
+
+**/
 const getSupplierById = async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -61,6 +86,15 @@ const getSupplierById = async (req, res, next) => {
     });
   }
 };
+
+/**
+ 
+ @api 
+ @method ->PATCH
+ @url  /api/v1/supplier
+
+**/
+
 const updateSupplier = async (req, res, next) => {
   const { id } = req.params;
   try {
