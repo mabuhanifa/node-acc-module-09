@@ -7,7 +7,7 @@ const productRouter = require("./routes/productRoute");
 const supplierRouter = require("./routes/supplierRoute");
 const stockRouter = require("./routes/stockRoute");
 
-//middlewares
+//middleware
 app.use(express.json());
 app.use(cors());
 
