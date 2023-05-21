@@ -91,7 +91,7 @@ const getSupplierById = async (req, res, next) => {
  
  @api 
  @method ->PATCH
- @url  /api/v1/supplier
+ @url /api/v1/supplier
 
 **/
 
